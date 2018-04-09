@@ -1,0 +1,142 @@
+/**
+* Modal Box
+*/
+.relative {
+	position: relative;
+}
+
+.absolute {
+	position: absolute;
+}
+
+.fixed {
+	position: fixed;
+}
+
+.full-wrapper {
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
+
+#modals-wrapper {
+
+}
+
+#modals-wrapper, .vue-modal, .vue-modal .mask {
+	&:extend(.full-wrapper);
+}
+
+.vue-modal {
+
+	&:extend(.fixed);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	pointer-events: none;
+
+	.mask {
+		&:extend(.absolute);
+		-webkit-backface-visibility: hidden;
+		background: rgba(55, 58, 71, 0.9);
+		z-index: 999;
+		//opacity: 0;
+		transition: opacity 0.3s;
+	}
+
+	.vue-modal-content {
+		&:extend(.relative);
+		background: white;
+		width: 50%;
+		max-width: 560px;
+		min-width: 290px;
+		border-radius: 4px;
+		padding: 15px;
+		z-index: 1000;
+		//opacity: 0;
+		pointer-events: auto;
+
+		h5 {
+			margin: 0 0 10px;
+		}
+
+		.form, .btn-handler {
+			margin: 0;
+		}
+	}
+
+	&.file-manager-modal .vue-modal-content {
+		width: 85%;
+		height: 90vh;
+		max-width: none;
+		overflow-y: scroll;
+	}
+
+	&.modal-enter-active {
+		.mask {
+			opacity: 1;
+			pointer-events: none;
+		}
+		.vue-modal-content {
+			animation-duration: 0.3s;
+			animation-name: anim-open;
+		}
+	}
+
+	/*&.modal-enter, &.modal-leave {
+		.mask {
+			opacity: 1;
+			pointer-events: none;
+		}
+		.vue-modal-content {
+			pointer-events: auto;
+		}
+	}
+
+	&.modal-leave-active {
+		.vue-modal-content {
+			animation-duration: 0.3s;
+			animation-name: anim-close;
+		}
+	}
+
+	&.modal-enter-active, &.modal-leave-active {
+		.vue-modal-content {
+			opacity: 1;
+			animation-fill-mode: both;
+			animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+		}
+	}*/
+
+	@keyframes anim-open {
+		0% {
+			transform: translate3d(0, calc(50vh + 50%), 0);
+		}
+		100% {
+			transform: translate3d(0, 0, 0);
+		}
+	}
+
+	@keyframes anim-close {
+		0% {
+			transform: translate3d(0, 0, 0);
+		}
+		100% {
+			transform: translate3d(0, calc(50vh + 50%), 0);
+		}
+	}
+}
+
+.modal-enter-active, .modal-leave-active {
+	transition: opacity .5s
+}
+
+.modal-enter, .modal-leave-active {
+	opacity: 0
+}
+
+#app.active, #global.active{
+	transform: scale3d(0.95, 0.95, 1);
+	pointer-events: none;
+}

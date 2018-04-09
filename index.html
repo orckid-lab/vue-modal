@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" href="node_modules/reset/dist/reset.css">
+	<link rel="stylesheet" href="dist/css/vue-modal.css">
+	<style>
+		body {
+			overflow-y: scroll;
+			background: #555;
+		}
+
+		#app {
+
+			position: relative;
+			float: left;
+			width: 100%;
+			background: white;
+			height: 100%;
+			transition: transform 0.3s 0.1s;
+		}
+	</style>
+</head>
+<body bgcolor="black">
+<div id="app">
+
+</div>
+<vue-modal id="modals-wrapper"></vue-modal>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.3/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.js"></script>
+<script src="dist/vue-modal.js"></script>
+<script>
+	// Create custom components
+	VueModal.component('custom-component-content', {
+		template: `
+			<div>This is a test for content component</div>
+		`,
+
+		data(){
+			return {
+				customData: 'customData',
+				customData2: 'customData2',
+				customData3: 'customData3',
+				customData4: 'customData4',
+			}
+		},
+	});
+
+	VueModal.component('custom-component-footer', {
+		template: `
+			<div>
+				<input type="text" name="name" v-model="modal.name">
+				<input type="text" name="description" v-model="modal.description">
+			</div>
+		`
+	});
+
+	VueModal.component('custom-component-content-2', {
+		template: `
+			<div>
+				<input type="text" name="name" v-model="modal.name">
+				<input type="text" name="description" v-model="modal.description">
+			</div>
+		`,
+
+		data(){
+			return {
+				customData: 'customData',
+				customData2: 'customData2',
+				customData3: 'customData3',
+				customData4: 'customData4',
+			}
+		},
+	});
+
+	VueModal.component('custom-component-footer-2', {
+		template: `
+			<div>
+				<a class="button is-primary" @click="modal.confirm()">{{ modal.labels.confirm }}</a>
+				<a class="button" @click="modal.close()">Cancel</a>
+			</div>
+		`
+	});
+
+	new Vue({
+		el: '#app',
+
+		mounted(){
+			// basic
+			VueModal
+					.show();
+
+			// component section
+			VueModal
+					.show({
+						components: {
+							content: 'custom-component-content',
+						}
+					});
+
+			// passing content and HTML
+			VueModal
+					.create()
+					.content('My modal content <strong>will catch your attention.</strong>')
+					.show();
+
+			// passing data and callbacks
+			VueModal
+				.create()
+				.classes(
+					['red', 'blue']
+				)
+				.data({
+					name: 'name',
+					description: 'description',
+				})
+				.callbacks({
+					confirm(){
+						alert(`${this.name} and ${this.description}`);
+					}
+				})
+				.components({
+					content: 'custom-component-content-2',
+					footer: 'custom-component-footer-2',
+				})
+				.buttonLabels({
+					confirm: 'Confirm Action',
+				})
+				.show();
+		},
+	});
+</script>
+</html>

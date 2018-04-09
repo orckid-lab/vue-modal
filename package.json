@@ -1,0 +1,23 @@
+{
+  "author": "",
+  "dependencies": {
+    "deep-extend": "^0.4.1",
+    "lodash": "^4.17.3",
+    "vue": "^2.1.8"
+  },
+  "description": "Vue Modal",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "laravel-elixir": "^6.0.0-14",
+    "laravel-elixir-webpack-official": "^1.0.2",
+    "reset": "git+https://github.com/orckid-lab/reset.git"
+  },
+  "license": "MIT",
+  "main": "dist/vue-modal.js",
+  "name": "vue-modal",
+  "scripts": {
+    "dev": "gulp watch",
+    "prod": "gulp --production"
+  },
+  "version": "1.1.0"
+}
